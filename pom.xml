@@ -30,7 +30,7 @@
 			<configuration>
 				<url>http://localhost:8080/finup</url>
 				<server>TomcatServer</server>
-				<path>/finup</path>
+				<path>/indepFin</path>
 			</configuration>
   		</plugin>
   	</plugins>
