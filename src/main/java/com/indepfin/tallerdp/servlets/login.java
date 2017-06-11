@@ -11,7 +11,6 @@ import java.io.PrintWriter;
 /**
  * Servlet implementation class login
  */
-//@WebServlet("/login")
 public class login extends HttpServlet {
 	// commit de prueba de herramienta integrada
 	private static final long serialVersionUID = 1L;
@@ -33,7 +32,7 @@ public class login extends HttpServlet {
 		String user = request.getParameter("user");
 		String pass = request.getParameter("password");
 		if ("admin".equals(user) && "admin".equals(pass)) {
-			response.sendRedirect(request.getContextPath() + "/tablero");
+			response.sendRedirect(request.getContextPath() + "/app-mobile.html");
 		} else {
 			response.sendRedirect("./login.html");
 		}
