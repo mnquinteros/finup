@@ -1,6 +1,7 @@
 package com.indepfin.tallerdp.servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,18 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.indepfin.talledp.model.Categoria;
 import com.indepfin.talledp.model.Gasto;
+import com.indepfin.tallerdp.persistence.EgresoDao;
 
 public class GastosServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
        
-    public GastosServlet() {
+    public GastosServlet() throws SQLException {
 		super();
-	}
+		this.dao = new EgresoDao();
+    }
 
-    //private StudentDAO dao;
+    private EgresoDao dao;
     public static final String LIST_GASTOS = "show-gastos.jsp";
     public static final String INSERT_OR_EDIT = "carga-gastos.jsp";
+    
  
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String forward = "";
@@ -34,7 +38,9 @@ public class GastosServlet extends HttpServlet {
             String gastoId = request.getParameter("gastoId") ;
             //dao.deleteStudent(studentId);
             System.out.println("DELETE GASTO" + gastoId);
-            request.setAttribute("gastos", getMockedGastos() );
+            List<Gasto> ll = getMockedGastos();
+            ll.remove(0);
+            request.setAttribute("gastos", ll );
         }
         else if( action.equalsIgnoreCase( "edit" ) ) {
             forward = INSERT_OR_EDIT;
@@ -56,14 +62,17 @@ public class GastosServlet extends HttpServlet {
  
     private List<Gasto> getMockedGastos() {
 		Gasto gasto1 = new Gasto();
+		gasto1.setId("1");
 		gasto1.setDescripcion("desc1");
 		gasto1.setCategoria(Categoria.ALIMENTOS);
 		gasto1.setMonto("200");
 		
 		Gasto gasto2 = new Gasto();
+		gasto2.setId("2");
 		gasto2.setDescripcion("desc2");
 		gasto2.setCategoria(Categoria.INDUMENTARIA);
 		gasto2.setMonto("500");
+		
     	List<Gasto> result = new ArrayList<Gasto>();
 		result.add(gasto1);
 		result.add(gasto2);
